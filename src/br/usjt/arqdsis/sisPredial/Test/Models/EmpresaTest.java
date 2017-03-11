@@ -12,6 +12,7 @@ import junit.framework.Assert;
 
 public class EmpresaTest {
 
+	
 	@Test
 	public void testIncluir() {
 		Empresa empresa = new Empresa();
@@ -27,27 +28,39 @@ public class EmpresaTest {
 		cj.setNrConjunto("1");
 		cj.setAndar("1");
 		cj.setTamanho(50);
-		empresa.incluir();
+		//empresa.incluir();
 		Assert.assertEquals("Empresa não é Igual",new Empresa("000000000","Teste"), empresa.getId());
 		
 	}
 
 	@Test
 	public void testAlterar() {
-		fail("Not yet implemented");
+		Empresa empresa =  new Empresa();
+		empresa.setId(2);
+		empresa.consultar();
+		
+		empresa.setCnpj("123456789");
+		empresa.alterar();
+		empresa.consultar();
+		Assert.assertEquals("Empresa não é Igual",new Empresa("123456789","Teste"), empresa.getId());
+		
 	}
 
 	@Test
 	public void testConsultar() {
 		Empresa empresa =  new Empresa();
-		empresa.setId(1);
+		empresa.setId(2);
 		empresa.consultar();
-		Assert.assertEquals("Empresa não é Igual",new Empresa("000000000","Teste"), empresa.getId());
+		Assert.assertEquals("Empresa não é Igual",new Empresa("123456789","Teste"), empresa);
 	}
 
 	@Test
 	public void testDeletar() {
-		fail("Not yet implemented");
+		Empresa empresa =  new Empresa();
+		empresa.setId(2);
+		empresa.consultar();
+		//empresa.deletar();
+		Assert.assertTrue(true);
 	}
 
 }

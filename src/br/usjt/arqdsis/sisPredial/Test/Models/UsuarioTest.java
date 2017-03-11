@@ -23,29 +23,46 @@ public class UsuarioTest {
 		usr.setHoraAcesso(new Time(1000));
 		Date dt = new Date();
 		dt.setTime((millisegundoHour * 8)+ (millisegundoHour/2) + fuso);
+		usr.setHoraAcesso(dt);
 		dt = new Date();
 		dt.setTime((millisegundoHour * 16)+fuso);
-		usr.setHoraAcesso(dt);
+		usr.setHoraSaida(dt);
 		usr.setLogin("rafa");
 		usr.setSenha("123");
 		usr.setPerfil(Usuario.TipoPerfil.Admin);
-		usr.setEmpresa(new Empresa("TEste","oi"));
-		usr.getEmpresa().setId(1);
+		usr.setEmpresa(new Empresa());
+		usr.getEmpresa().setId(2);
+		usr.getEmpresa().consultar();
+		
+		//usr.incluir();
+		
 	}
 
 	@Test
 	public void testAlterar() {
-		fail("Not yet implemented");
+		Usuario usr = new Usuario();
+		usr.setId(1);
+		usr.consultar();
+		usr.setNome("Rafinha");
+		usr.alterar();
+		
 	}
 
 	@Test
 	public void testConsultar() {
-		fail("Not yet implemented");
+		Usuario usr = new Usuario();
+		usr.setId(1);
+		usr.consultar();
+		
+		
 	}
 
 	@Test
 	public void testDeletar() {
-		fail("Not yet implemented");
+		Usuario usr = new Usuario();
+		usr.setId(1);
+		usr.consultar();
+		usr.deletar();
 	}
 
 }

@@ -60,9 +60,8 @@ public class EmpresaDao extends AbstractDao {
 	// alterar
 	public void alterar(Empresa empresa) {
 
-		String sqlInsert = "Update Empresa set " + "CNPJ = ?" + ",RAZAOSOCIAL = ?" + ",TemperaturaAr = ?"
-				+ ",horaAbertura = ?" + ",horaFechamento = ?" + ",horaIniAr = ?" + ",horaFimAr = ?" + ""
-						+ ",conjunto_id = ? "
+		String sqlInsert = "Update Empresa set " + "CNPJ = ?" + ",RAZAOSOCIAL = ?" + ",TemperaturaPadrao = ?"
+				+ ",horarioAbertura = ?" + ",horarioFechamento = ?" + ",horaIniAr = ?" + ",horaFimAr = ?" + ""
 				+ " where id = ?";
 
 		PreparedStatement stm = null;
@@ -75,8 +74,7 @@ public class EmpresaDao extends AbstractDao {
 			stm.setTime(5, empresa.getHorarioFechamento());
 			stm.setTime(6, empresa.getHoraIniAr());
 			stm.setTime(7, empresa.getHoraFimAr());
-			stm.setInt(8, empresa.getConjunto().getId());
-			stm.setInt(9, empresa.getId());
+			stm.setInt(8, empresa.getId());
 			stm.execute();
 		} catch (Exception e) {
 			e.printStackTrace();

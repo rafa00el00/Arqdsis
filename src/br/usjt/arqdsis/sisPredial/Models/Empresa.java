@@ -120,7 +120,7 @@ public class Empresa extends IEntidade {
 
 	@Override
 	public String toString() {
-		return getId() + " - " + getRazaoSocial();
+		return getCnpj() + " - " + getRazaoSocial();
 	}
 	
 	@Override

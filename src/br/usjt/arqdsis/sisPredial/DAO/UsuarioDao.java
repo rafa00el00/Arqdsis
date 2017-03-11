@@ -1,9 +1,12 @@
 package br.usjt.arqdsis.sisPredial.DAO;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.mysql.jdbc.Statement;
 
 import br.usjt.arqdsis.sisPredial.Models.Empresa;
 import br.usjt.arqdsis.sisPredial.Models.IEntidade;
@@ -23,21 +26,25 @@ public class UsuarioDao extends AbstractDao{
          +"login"
          +",CPF"
          +",nome"
-         +",empresa_id"
+         +",empresaId"
          +",horaAcesso"
          +",horaSaida"
+         +",senha"
+         +",perfil"
          +")"
-         +" VALUES (?, ?, ?, ?, ?, ?)";
+         +" VALUES (?, ?, ?, ?, ?, ?,?,?)";
       PreparedStatement stm = null;
       try
       {
-         stm = conn.prepareStatement(sqlInsert);
+         stm = conn.prepareStatement(sqlInsert,Statement.RETURN_GENERATED_KEYS);
          stm.setString(1, usr.getLogin());
          stm.setString(2, usr.getCPF());
          stm.setString(3, usr.getNome());
          stm.setInt(4, usr.getEmpresa().getId());
-       //  stm.setTime(5, usr.getHoraAcesso());
-        // stm.setTime(6, usr.getHoraSaida());
+         stm.setDate(5, new Date(usr.getHoraAcesso().getTime()));
+         stm.setDate(6, new Date(usr.getHoraSaida().getTime()));
+         stm.setString(7, usr.getSenha());
+         stm.setString(8,usr.getPerfil().toString());
          stm.executeUpdate();
 			ResultSet rs = stm.getGeneratedKeys();
 			rs.next();
@@ -78,11 +85,13 @@ public class UsuarioDao extends AbstractDao{
       String sqlInsert = "Update Usuario set "
          +"login = ?"
          +",CPF = ?"
-         +",empresa_id = ?"
+         +",empresaId = ?"
          +",horaAcesso = ?"
          +",horaSaida = ?"
          +",nome = ?"
-         +""
+         +",senha = ?"
+         +",perfil = ?"
+         +" "
          +" where id = ?";
          
       PreparedStatement stm = null;
@@ -92,10 +101,12 @@ public class UsuarioDao extends AbstractDao{
          stm.setString(1, usr.getLogin());
          stm.setString(2, usr.getCPF());
          stm.setInt(3, usr.getEmpresa().getId());
-        // stm.setTime(4, usr.getHoraAcesso());
-        // stm.setTime(5, usr.getHoraSaida());
+         stm.setDate(4, new Date(usr.getHoraAcesso().getTime()));
+         stm.setDate(5, new Date(usr.getHoraSaida().getTime()));
          stm.setString(6, usr.getNome());
-         stm.setInt(7, usr.getId());
+         stm.setString(7, usr.getSenha());
+         stm.setString(8, usr.getPerfil().toString());
+         stm.setInt(9, usr.getId());
          stm.execute();
       }
       catch (Exception e)
@@ -134,7 +145,7 @@ public class UsuarioDao extends AbstractDao{
       if (entidade instanceof Usuario){
          sqlSelect += " where id = ?";
       }
-      usr= new Usuario();
+      usr= (Usuario)entidade;
    
       PreparedStatement stm = null;
       ResultSet rs = null;
@@ -156,11 +167,12 @@ public class UsuarioDao extends AbstractDao{
             usr.setLogin(rs.getString("login"));
             usr.setNome(rs.getString("nome"));
             usr.setEmpresa(new Empresa());
-            usr.getEmpresa().setId(rs.getInt("empresa_id"));
+            usr.getEmpresa().setId(rs.getInt("empresaId"));
             empDao.consultar(usr.getEmpresa());
             usr.setHoraAcesso(rs.getTime("horaAcesso"));
             usr.setHoraSaida(rs.getTime("horaSaida"));
-                
+            usr.setSenha(rs.getString("senha"));
+            usr.setPerfil(Usuario.TipoPerfil.valueOf(rs.getString("perfil")));
             
          }
       }
@@ -229,10 +241,12 @@ public class UsuarioDao extends AbstractDao{
             usr.setLogin(rs.getString("login"));
             usr.setNome(rs.getString("nome"));
             usr.setEmpresa(new Empresa());
-            usr.getEmpresa().setId(rs.getInt("empresa_id"));
+            usr.getEmpresa().setId(rs.getInt("empresaId"));
             empDao.consultar(usr.getEmpresa());
             usr.setHoraAcesso(rs.getTime("horaAcesso"));
             usr.setHoraSaida(rs.getTime("horaSaida"));
+            usr.setSenha(rs.getString("senha"));
+            usr.setPerfil(Usuario.TipoPerfil.valueOf(rs.getString("perfil")));
             
             usuarios.add(usr);     
             
