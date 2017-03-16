@@ -9,4 +9,11 @@ public class Retangulo extends Poligono implements Diagonal
 		return 0;
 	}
 
+	@Override
+	public double perimetro() {
+		return getBase() * 2 + getAltura() * 2;
+	}
+	
+	
+
 }

@@ -1,7 +1,12 @@
 package br.usjt.arqdsis.sisPredial.Aula03;
 
-public abstract class Poligono {
+public abstract class Poligono extends Figura {
 
+	@Override
+	public double area() {
+		return getBase() * getAltura();
+	}
+	
 	private double base;
 	private double altura;
 	
@@ -18,6 +23,5 @@ public abstract class Poligono {
 		this.altura = altura;
 	}
 	
-	
-	
+
 }
