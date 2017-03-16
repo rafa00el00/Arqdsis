@@ -2,24 +2,62 @@ package br.usjt.arqdsis.sisPredial.Core;
 
 import java.util.List;
 
+import br.usjt.arqdsis.sisPredial.DAO.AbstractDao;
+import br.usjt.arqdsis.sisPredial.Factorys.FactoryDao;
+import br.usjt.arqdsis.sisPredial.Factorys.IFactory;
 import br.usjt.arqdsis.sisPredial.Models.IEntidade;
 
 public class Fachade {
 
-	public boolean salvar(IEntidade entidade){
-		return false;
+	IFactory factoryDao;
+
+	public Fachade() {
+		factoryDao = new FactoryDao();
 	}
-	public IEntidade consultar(IEntidade entidade){
-		return null;
+
+	public boolean salvar(IEntidade entidade) {
+		AbstractDao dao = (AbstractDao) factoryDao.criar(entidade);
+
+		if (dao == null)
+			return false;
+
+		return dao.incluir(entidade);
 	}
-	public List<IEntidade> consultarTodos(IEntidade entidade){
-		return null;
+
+	public IEntidade consultar(IEntidade entidade) {
+		AbstractDao dao = (AbstractDao) factoryDao.criar(entidade);
+
+		if (dao == null)
+			return null;
+
+		return (IEntidade) dao.consultar(entidade);
 	}
-	public boolean alterar(IEntidade entidade){
-		return false;
+
+	public List<IEntidade> consultarTodos(IEntidade entidade) {
+		AbstractDao dao = (AbstractDao) factoryDao.criar(entidade);
+
+		if (dao == null)
+			return null;
+
+		return dao.consultarTodos(entidade);
 	}
-	public boolean deletar(IEntidade entidade){
-		return false;
+
+	public boolean alterar(IEntidade entidade) {
+		AbstractDao dao = (AbstractDao) factoryDao.criar(entidade);
+
+		if (dao == null)
+			return false;
+
+		return dao.alterar(entidade);
 	}
-	
+
+	public boolean deletar(IEntidade entidade) {
+		AbstractDao dao = (AbstractDao) factoryDao.criar(entidade);
+
+		if (dao == null)
+			return false;
+
+		return dao.deletar(entidade);
+	}
+
 }

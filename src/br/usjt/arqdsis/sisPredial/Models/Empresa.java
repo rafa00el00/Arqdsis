@@ -18,7 +18,7 @@ public class Empresa extends IEntidade {
 
 	private List<Usuario> funcionarios;
 
-	private EmpresaDao dao;
+	
 
 	public Empresa() {
 		this("", "");
@@ -27,7 +27,7 @@ public class Empresa extends IEntidade {
 	public Empresa(String cnpj, String razaoSocial) {
 		this.cnpj = cnpj;
 		this.razaoSocial = razaoSocial;
-		dao = new EmpresaDao();
+	
 	}
 
 	// getters e Settes
@@ -102,22 +102,7 @@ public class Empresa extends IEntidade {
 		this.funcionarios = funcionarios;
 	}
 
-	public void incluir() {
-		dao.incluir(this);
-	}
-
-	public void alterar() {
-		dao.alterar(this);
-	}
-
-	public void consultar() {
-		dao.consultar(this);
-	}
-
-	public void deletar() {
-		dao.deletar(this);
-	}
-
+	
 	@Override
 	public String toString() {
 		return getCnpj() + " - " + getRazaoSocial();

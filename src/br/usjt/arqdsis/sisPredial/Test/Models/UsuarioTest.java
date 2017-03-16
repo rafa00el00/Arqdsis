@@ -5,8 +5,11 @@ import static org.junit.Assert.fail;
 import java.sql.Time;
 import java.util.Date;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import br.usjt.arqdsis.sisPredial.DAO.EmpresaDao;
+import br.usjt.arqdsis.sisPredial.DAO.UsuarioDao;
 import br.usjt.arqdsis.sisPredial.Models.Empresa;
 import br.usjt.arqdsis.sisPredial.Models.Usuario;
 
@@ -14,6 +17,12 @@ public class UsuarioTest {
 
 	public final int millisegundoHour = 3600000;
 	public final int fuso = 3600000 * 3;
+	
+	private UsuarioDao dao;
+	@BeforeClass
+	public void beforeClass(){
+		dao = new UsuarioDao();
+	}
 	
 	@Test
 	public void testIncluir() {
@@ -32,19 +41,19 @@ public class UsuarioTest {
 		usr.setPerfil(Usuario.TipoPerfil.Admin);
 		usr.setEmpresa(new Empresa());
 		usr.getEmpresa().setId(2);
-		usr.getEmpresa().consultar();
+		EmpresaDao daoEmpresa = new EmpresaDao();
+		daoEmpresa.consultar(usr.getEmpresa());
 		
-		//usr.incluir();
-		
+		//dao.incluir(usr);
 	}
 
 	@Test
 	public void testAlterar() {
 		Usuario usr = new Usuario();
 		usr.setId(1);
-		usr.consultar();
+		dao.consultar(usr);
 		usr.setNome("Rafinha");
-		usr.alterar();
+		dao.alterar(usr);
 		
 	}
 
@@ -52,7 +61,7 @@ public class UsuarioTest {
 	public void testConsultar() {
 		Usuario usr = new Usuario();
 		usr.setId(1);
-		usr.consultar();
+		dao.consultar(usr);
 		
 		
 	}
@@ -61,8 +70,8 @@ public class UsuarioTest {
 	public void testDeletar() {
 		Usuario usr = new Usuario();
 		usr.setId(1);
-		usr.consultar();
-		usr.deletar();
+		dao.consultar(usr);
+		dao.deletar(usr);
 	}
 
 }

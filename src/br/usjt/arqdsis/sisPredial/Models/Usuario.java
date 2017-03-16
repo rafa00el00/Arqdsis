@@ -12,13 +12,12 @@ public class Usuario extends IEntidade{
    private Empresa empresa;
    private Date horaAcesso;
    private Date horaSaida; 
-   private UsuarioDao dao;
    
    public Usuario(String login,String senha,TipoPerfil perfil){
       setLogin(login);
       setSenha(senha);
       setPerfil(perfil);
-      dao = new UsuarioDao();
+     
    }
    
    public Usuario(){
@@ -88,23 +87,5 @@ public class Usuario extends IEntidade{
       this.horaSaida = horaSaida;
    }
 
-   
-   
-   //Metodos
-   public void incluir(){
-      dao.incluir(this);          
-   }
-   
-    public void alterar(){
-      dao.alterar(this); 
-   }
-   
-   public void consultar(){
-      dao.consultar(this);          
-   }
-   
-   public void deletar(){ 
-	   dao.deletar(this);
-   }
    
 }

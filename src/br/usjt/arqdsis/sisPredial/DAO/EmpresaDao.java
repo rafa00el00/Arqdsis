@@ -12,20 +12,23 @@ import br.usjt.arqdsis.sisPredial.Models.Conjunto;
 import br.usjt.arqdsis.sisPredial.Models.Empresa;
 import br.usjt.arqdsis.sisPredial.Models.IEntidade;
 
-public class EmpresaDao extends AbstractDao {
+public class EmpresaDao extends AbstractDao<Empresa> {
+
+	private ConjuntoDao daoConjunto;
 
 	public EmpresaDao() {
 		super();
+		daoConjunto = new ConjuntoDao();
 	}
 
 	// incluir
-	public void incluir(Empresa empresa) {
+	public boolean incluir(Empresa empresa) {
 
 		String sqlInsert = "INSERT INTO Empresa(" + "CNPJ" + ",RAZAOSOCIAL" + ",temperaturaPadrao" + ",horarioAbertura"
 				+ ",horarioFechamento" + ",horaIniAr" + ",horaFimAr" + ")" + " VALUES (?, ?, ?, ?, ?,?,?)";
 		PreparedStatement stm = null;
 		try {
-			stm = conn.prepareStatement(sqlInsert,Statement.RETURN_GENERATED_KEYS);
+			stm = conn.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
 			stm.setString(1, empresa.getCnpj());
 			stm.setString(2, empresa.getRazaoSocial());
 			stm.setInt(3, empresa.getTemperaturaPadrao());
@@ -33,12 +36,13 @@ public class EmpresaDao extends AbstractDao {
 			stm.setTime(5, empresa.getHorarioFechamento());
 			stm.setTime(6, empresa.getHoraIniAr());
 			stm.setTime(7, empresa.getHoraFimAr());
-			//stm.setInt(8, empresa.getConjunto().getId());
+			// stm.setInt(8, empresa.getConjunto().getId());
 			stm.executeUpdate();
-			
+
 			ResultSet rs = stm.getGeneratedKeys();
 			rs.next();
 			empresa.setId(rs.getInt(1));
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			try {
@@ -55,10 +59,11 @@ public class EmpresaDao extends AbstractDao {
 				}
 			}
 		}
+		return false;
 	}
 
 	// alterar
-	public void alterar(Empresa empresa) {
+	public boolean alterar(Empresa empresa) {
 
 		String sqlInsert = "Update Empresa set " + "CNPJ = ?" + ",RAZAOSOCIAL = ?" + ",TemperaturaPadrao = ?"
 				+ ",horarioAbertura = ?" + ",horarioFechamento = ?" + ",horaIniAr = ?" + ",horaFimAr = ?" + ""
@@ -76,6 +81,7 @@ public class EmpresaDao extends AbstractDao {
 			stm.setTime(7, empresa.getHoraFimAr());
 			stm.setInt(8, empresa.getId());
 			stm.execute();
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			try {
@@ -92,24 +98,25 @@ public class EmpresaDao extends AbstractDao {
 				}
 			}
 		}
+		return false;
 	}
 
 	// Consultar
-	public Empresa consultar(Empresa empresa) {
+	public Empresa consultar(IEntidade obj) {
 		String sqlSelect = "SELECT * FROM Empresa";
-		if (empresa instanceof Empresa) {
+		if (obj instanceof Empresa) {
 			sqlSelect += " where id = ?";
 		}
-
+		Empresa empresa = (Empresa) obj;
 		PreparedStatement stm = null;
 		ResultSet rs = null;
-      UsuarioDao usrDao = new UsuarioDao();
-		
+		UsuarioDao usrDao = new UsuarioDao();
+
 		try {
 			stm = conn.prepareStatement(sqlSelect);
-			
-				stm.setInt(1, empresa.getId());
-			
+
+			stm.setInt(1, empresa.getId());
+
 			rs = stm.executeQuery();
 			Conjunto cj;
 			while (rs.next()) {
@@ -122,7 +129,7 @@ public class EmpresaDao extends AbstractDao {
 				empresa.setHorarioFechamento(rs.getTime("horarioFechamento"));
 				empresa.setHoraIniAr(rs.getTime("horaIniAr"));
 				empresa.setHoraFimAr(rs.getTime("horaFimAr"));
-				//empresa.setFuncionarios(usrDao.consultarTodos(empresa));
+				// empresa.setFuncionarios(usrDao.consultarTodos(empresa));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -155,7 +162,7 @@ public class EmpresaDao extends AbstractDao {
 		PreparedStatement stm = null;
 		ResultSet rs = null;
 		Empresa empresa = new Empresa();
-      UsuarioDao usrDao = new UsuarioDao();
+		UsuarioDao usrDao = new UsuarioDao();
 		try {
 			stm = conn.prepareStatement(sqlSelect);
 			/*
@@ -176,9 +183,9 @@ public class EmpresaDao extends AbstractDao {
 				empresa.setHoraFimAr(rs.getTime("horaFimAr"));
 				cj = new Conjunto();
 				cj.setId(rs.getInt("conjunto_id"));
-				cj.consultar();
+				daoConjunto.consultar(cj);
 				empresa.setConjunto(cj);
-				//empresa.setFuncionarios(usrDao.consultarTodos(empresa));
+				// empresa.setFuncionarios(usrDao.consultarTodos(empresa));
 				empresas.add(empresa);
 
 			}
@@ -200,17 +207,16 @@ public class EmpresaDao extends AbstractDao {
 		}
 		return empresas;
 	}
-	
-	
-	public void deletar(Empresa empresa) {
-		String sqlInsert = "Delete from Empresa"
-				+ " where id = ?";
+
+	public boolean deletar(Empresa empresa) {
+		String sqlInsert = "Delete from Empresa" + " where id = ?";
 
 		PreparedStatement stm = null;
 		try {
 			stm = conn.prepareStatement(sqlInsert);
 			stm.setInt(1, empresa.getId());
 			stm.execute();
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			try {
@@ -227,7 +233,7 @@ public class EmpresaDao extends AbstractDao {
 				}
 			}
 		}
+		return false;
 	}
-	
 
 }

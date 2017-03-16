@@ -1,11 +1,10 @@
 package br.usjt.arqdsis.sisPredial.DAO;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
-public abstract class AbstractDao{
+import br.usjt.arqdsis.sisPredial.Models.IEntidade;
+
+public abstract class AbstractDao<T>{
    protected Connection conn;
    
    public AbstractDao(){
@@ -16,5 +15,12 @@ public abstract class AbstractDao{
          e.printStackTrace();
       }
    }
+   
+   public abstract boolean incluir(T obj);
+   public abstract boolean alterar(T obj);
+   public abstract T consultar(IEntidade obj);
+   public abstract List<T> consultarTodos(IEntidade obj);
+   public abstract boolean deletar(T obj);
+   
   
 }

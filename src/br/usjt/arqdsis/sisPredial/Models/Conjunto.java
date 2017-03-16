@@ -10,10 +10,9 @@ public class Conjunto extends IEntidade{
    private boolean ocupado;
    private Empresa empresa;
    
-   private ConjuntoDao dao;
+  
    
    public Conjunto(){
-      dao = new ConjuntoDao();
    }
    
    //Getters and Setters
@@ -53,12 +52,7 @@ public class Conjunto extends IEntidade{
    public void setEmpresa(Empresa empresa) {
       this.empresa = empresa;
    }
-	   
-	   
-   public void inserir(){dao.incluir(this); }
-   public void alterar(){dao.alterar(this); }
-   public void consultar(){dao.consultar(this); }
-   public void deletar(){dao.deletar(this); }  	
+	   	
 
    @Override
 	public String toString() {

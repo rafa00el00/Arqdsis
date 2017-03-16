@@ -12,14 +12,13 @@ import br.usjt.arqdsis.sisPredial.Models.Empresa;
 import br.usjt.arqdsis.sisPredial.Models.IEntidade;
 import br.usjt.arqdsis.sisPredial.Models.Usuario;
 
-public class UsuarioDao extends AbstractDao{
+public class UsuarioDao extends AbstractDao<Usuario>{
 
    public UsuarioDao(){
       super();
    }
 
-   //incluir
-   public void incluir(Usuario usr)
+   public boolean incluir(Usuario usr)
    {
    
       String sqlInsert = "INSERT INTO Usuario("
@@ -49,6 +48,7 @@ public class UsuarioDao extends AbstractDao{
 			ResultSet rs = stm.getGeneratedKeys();
 			rs.next();
 			usr.setId(rs.getInt(1));
+			return true;
       }
       catch (Exception e)
       {
@@ -76,10 +76,13 @@ public class UsuarioDao extends AbstractDao{
             }
          }
       }
+      
+      return false;
+      
    }
    
    //alterar
-   public void alterar(Usuario usr)
+   public boolean alterar(Usuario usr)
    {
    
       String sqlInsert = "Update Usuario set "
@@ -108,6 +111,7 @@ public class UsuarioDao extends AbstractDao{
          stm.setString(8, usr.getPerfil().toString());
          stm.setInt(9, usr.getId());
          stm.execute();
+         return true;
       }
       catch (Exception e)
       {
@@ -135,6 +139,7 @@ public class UsuarioDao extends AbstractDao{
             }
          }
       }
+      return false;
    }
    
    //Consultar

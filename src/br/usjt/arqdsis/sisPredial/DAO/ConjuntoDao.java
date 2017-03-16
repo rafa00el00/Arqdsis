@@ -13,14 +13,17 @@ import br.usjt.arqdsis.sisPredial.Models.Conjunto;
 import br.usjt.arqdsis.sisPredial.Models.Empresa;
 import br.usjt.arqdsis.sisPredial.Models.IEntidade;
 
-public class ConjuntoDao extends AbstractDao {
+public class ConjuntoDao extends AbstractDao<Conjunto> {
+
+	private EmpresaDao empresaDao;
 
 	public ConjuntoDao() {
 		super();
+		empresaDao = new EmpresaDao();
 	}
 
 	// incluir
-	public void incluir(Conjunto conjunto) {
+	public boolean incluir(Conjunto conjunto) {
 
 		String sqlInsert = "INSERT INTO Conjunto(" + "nrConjunto" + ",Andar" + ",Alugel" + ",tamanho" + ",ocupado"
 				+ ",empresaId" + ")" + " VALUES (?, ?, ?, ?, ?,?)";
@@ -40,6 +43,7 @@ public class ConjuntoDao extends AbstractDao {
 			ResultSet rs = stm.getGeneratedKeys();
 			rs.next();
 			conjunto.setId(rs.getInt(1));
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			try {
@@ -56,10 +60,11 @@ public class ConjuntoDao extends AbstractDao {
 				}
 			}
 		}
+		return false;
 	}
 
 	// alterar
-	public void alterar(Conjunto conjunto) {
+	public boolean alterar(Conjunto conjunto) {
 
 		String sqlInsert = "Update Conjunto set " + " nrConjunto = ?" + " ,Andar = ?" + " ,Alugel = ?" + " ,tamanho = ?"
 				+ " ,ocupado = ?" + ",empresaId = ?" + "" + " where id = ?";
@@ -78,6 +83,7 @@ public class ConjuntoDao extends AbstractDao {
 				stm.setNull(6, java.sql.Types.INTEGER);
 			stm.setInt(7, conjunto.getId());
 			stm.execute();
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			try {
@@ -94,6 +100,7 @@ public class ConjuntoDao extends AbstractDao {
 				}
 			}
 		}
+		return false;
 	}
 
 	// Consultar
@@ -126,7 +133,7 @@ public class ConjuntoDao extends AbstractDao {
 				if (rs.getInt("empresaId") != 0) {
 					conjunto.setEmpresa(new Empresa());
 					conjunto.getEmpresa().setId(rs.getInt("empresaId"));
-					conjunto.getEmpresa().consultar();
+					empresaDao.consultar(conjunto.getEmpresa());
 				}
 			}
 		} catch (Exception e) {
@@ -172,7 +179,7 @@ public class ConjuntoDao extends AbstractDao {
 				if (rs.getInt("empresaId") != 0) {
 					conjunto.setEmpresa(new Empresa());
 					conjunto.getEmpresa().setId(rs.getInt("empresaId"));
-					conjunto.getEmpresa().consultar();
+					empresaDao.consultar(conjunto.getEmpresa());
 				}
 				conjuntos.add(conjunto);
 
