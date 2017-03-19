@@ -18,7 +18,7 @@ public class EmpresaDao extends AbstractDao<Empresa> {
 
 	public EmpresaDao() {
 		super();
-		daoConjunto = new ConjuntoDao();
+		//daoConjunto = new ConjuntoDao();
 	}
 
 	// incluir
@@ -176,15 +176,12 @@ public class EmpresaDao extends AbstractDao<Empresa> {
 				empresa.setId(rs.getInt("id"));
 				empresa.setCnpj(rs.getString("cnpj"));
 				empresa.setRazaoSocial(rs.getString("razaosocial"));
-				empresa.setTemperaturaPadrao(rs.getInt("TemperaturaAr"));
-				empresa.setHorarioAbertura(rs.getTime("horaAbertura"));
-				empresa.setHorarioFechamento(rs.getTime("horaFechamento"));
+				empresa.setTemperaturaPadrao(rs.getInt("TemperaturaPadrao"));
+				empresa.setHorarioAbertura(rs.getTime("horarioAbertura"));
+				empresa.setHorarioFechamento(rs.getTime("horarioFechamento"));
 				empresa.setHoraIniAr(rs.getTime("horaIniAr"));
 				empresa.setHoraFimAr(rs.getTime("horaFimAr"));
-				cj = new Conjunto();
-				cj.setId(rs.getInt("conjunto_id"));
-				daoConjunto.consultar(cj);
-				empresa.setConjunto(cj);
+				
 				// empresa.setFuncionarios(usrDao.consultarTodos(empresa));
 				empresas.add(empresa);
 
