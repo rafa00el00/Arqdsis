@@ -1,52 +1,46 @@
 package br.usjt.arqdsis.sisPredial.Controllers;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
+import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import br.usjt.arqdsis.sisPredial.Core.Fachade;
-import br.usjt.arqdsis.sisPredial.Models.Conjunto;
-import br.usjt.arqdsis.sisPredial.Models.Empresa;
+import br.usjt.arqdsis.sisPredial.DAO.AbstractDao;
+import br.usjt.arqdsis.sisPredial.Factorys.FactoryDao;
+import br.usjt.arqdsis.sisPredial.Factorys.FactoryViewHelper;
 import br.usjt.arqdsis.sisPredial.Models.IEntidade;
-import br.usjt.arqdsis.sisPredial.Models.Usuario;
+import br.usjt.arqdsis.sisPredial.Test.ViewHelpers.IViewHelper;
 
-@RestController
-public class CrudController {
+/**
+ * Servlet implementation class CrudController
+ */
+@WebServlet("/CrudController.do")
+public class CrudController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 
-	@Autowired
-	private Fachade fachade;
+	private FactoryDao factoryDao;
+	private FactoryViewHelper factoryViewHelper;
 	
-	@RequestMapping(value="/Empresas",method = RequestMethod.GET ,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<IEntidade> getEntidades(){
-		
-		return fachade.consultarTodos(new Empresa());
+    
+    public CrudController() {
+       factoryDao = new FactoryDao();
+       factoryViewHelper = new FactoryViewHelper();
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
-	
-	@RequestMapping(value="/Empresas",method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<IEntidade> postEntidade(@RequestBody Empresa entidade){
-		
-		System.out.println("Empresa: " + (entidade instanceof Empresa));
-		/*System.out.println("Usuario: " + (entidade instanceof Usuario));
-		System.out.println("Conjunto: " + (entidade instanceof Conjunto));*/
-		
-		try {
-			return ResponseEntity.created(new URI("/Empresa/1")).body(entidade);
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		
-		}
-		
+
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		IViewHelper vhp = factoryViewHelper.criar(request);
+		IEntidade entidade = vhp.criar(request);
+		AbstractDao dao = factoryDao.criar(entidade);
+		dao.incluir(entidade);
 	}
-	
-	
+
 }

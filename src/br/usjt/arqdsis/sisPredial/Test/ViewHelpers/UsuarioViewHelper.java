@@ -1,0 +1,33 @@
+package br.usjt.arqdsis.sisPredial.Test.ViewHelpers;
+
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+
+import br.usjt.arqdsis.sisPredial.Models.Empresa;
+import br.usjt.arqdsis.sisPredial.Models.IEntidade;
+import br.usjt.arqdsis.sisPredial.Models.Usuario;
+import br.usjt.arqdsis.sisPredial.Models.Usuario.TipoPerfil;
+
+public class UsuarioViewHelper implements IViewHelper {
+
+	@Override
+	public IEntidade criar(HttpServletRequest request) {
+		Usuario usuario = new Usuario();
+
+		usuario.setCPF(request.getParameter("cpf"));
+		usuario.setNome(request.getParameter("nome"));
+		usuario.setPerfil(TipoPerfil.valueOf(request.getParameter("perfil")));
+		usuario.setLogin(request.getParameter("login"));
+		usuario.setSenha(request.getParameter("senha"));
+		usuario.setHoraAcesso(new Date(request.getParameter("horaAcesso")));
+		usuario.setHoraSaida(new Date(request.getParameter("horaSaida")));
+		usuario.setId(Integer.parseInt(request.getParameter("id")));
+		
+		usuario.setEmpresa(new Empresa());
+		usuario.getEmpresa().setId(Integer.parseInt(request.getParameter("idEmpresa")));
+
+		return usuario;
+	}
+
+}
