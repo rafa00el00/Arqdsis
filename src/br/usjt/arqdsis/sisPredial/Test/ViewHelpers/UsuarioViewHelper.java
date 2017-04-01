@@ -1,5 +1,9 @@
 package br.usjt.arqdsis.sisPredial.Test.ViewHelpers;
 
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,9 +24,23 @@ public class UsuarioViewHelper implements IViewHelper {
 		usuario.setPerfil(TipoPerfil.valueOf(request.getParameter("perfil")));
 		usuario.setLogin(request.getParameter("login"));
 		usuario.setSenha(request.getParameter("senha"));
-		usuario.setHoraAcesso(new Date(request.getParameter("horaAcesso")));
-		usuario.setHoraSaida(new Date(request.getParameter("horaSaida")));
-		usuario.setId(Integer.parseInt(request.getParameter("id")));
+		DateFormat fmtData = new SimpleDateFormat("HH:mm");
+		String data = request.getParameter("horaAcesso");
+		try {
+			usuario.setHoraAcesso(new Time(fmtData.parse(data).getTime()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		data = request.getParameter("horaSaida");
+		try {
+			usuario.setHoraSaida(new Time(fmtData.parse(data).getTime()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(request.getParameter("id") != null)
+			usuario.setId(Integer.parseInt(request.getParameter("id")));
 		
 		usuario.setEmpresa(new Empresa());
 		usuario.getEmpresa().setId(Integer.parseInt(request.getParameter("idEmpresa")));

@@ -31,8 +31,8 @@ create table Usuario(
    ,perfil varchar(255)
    ,CPF varchar(255)
    ,nome varchar(255)
-   ,horaAcesso datetime
-   ,horaSaida datetime
+   ,horaAcesso Time
+   ,horaSaida Time
     ,empresaId int
     ,constraint FK_Usuario_Empresa foreign key (empresaId) references Empresa(id)
 );

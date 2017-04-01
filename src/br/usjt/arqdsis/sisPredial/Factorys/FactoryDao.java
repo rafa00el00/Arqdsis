@@ -26,7 +26,7 @@ public class FactoryDao implements IFactory<AbstractDao> {
 		
 		if(obj == null)
 			return null;
-		
+		System.out.println(obj.getClass().getName());
 		if (listaDaos.containsKey(obj.getClass().getName()))
 			return listaDaos.get(obj.getClass().getName());
 		
