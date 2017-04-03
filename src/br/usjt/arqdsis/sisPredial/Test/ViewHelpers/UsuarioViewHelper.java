@@ -21,29 +21,33 @@ public class UsuarioViewHelper implements IViewHelper {
 
 		usuario.setCPF(request.getParameter("cpf"));
 		usuario.setNome(request.getParameter("nome"));
-		usuario.setPerfil(TipoPerfil.valueOf(request.getParameter("perfil")));
+		if (request.getParameter("perfil") != null)
+			usuario.setPerfil(TipoPerfil.valueOf(request.getParameter("perfil")));
 		usuario.setLogin(request.getParameter("login"));
 		usuario.setSenha(request.getParameter("senha"));
 		DateFormat fmtData = new SimpleDateFormat("HH:mm");
 		String data = request.getParameter("horaAcesso");
-		try {
-			usuario.setHoraAcesso(new Time(fmtData.parse(data).getTime()));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		if (data != null)
+			try {
+				usuario.setHoraAcesso(new Time(fmtData.parse(data).getTime()));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		data = request.getParameter("horaSaida");
-		try {
-			usuario.setHoraSaida(new Time(fmtData.parse(data).getTime()));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if(request.getParameter("id") != null)
+		if (data != null)
+			try {
+				usuario.setHoraSaida(new Time(fmtData.parse(data).getTime()));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		if (request.getParameter("id") != null)
 			usuario.setId(Integer.parseInt(request.getParameter("id")));
-		
+
 		usuario.setEmpresa(new Empresa());
-		usuario.getEmpresa().setId(Integer.parseInt(request.getParameter("idEmpresa")));
+		if (request.getParameter("idEmpresa") != null)
+			usuario.getEmpresa().setId(Integer.parseInt(request.getParameter("idEmpresa")));
 
 		return usuario;
 	}

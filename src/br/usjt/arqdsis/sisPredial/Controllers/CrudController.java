@@ -1,6 +1,7 @@
 package br.usjt.arqdsis.sisPredial.Controllers;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,8 +37,28 @@ public class CrudController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		IViewHelper vhp = factoryViewHelper.criar(request);
+		IEntidade entidade = vhp.criar(request);
+		AbstractDao dao = factoryDao.criar(entidade);
+		List<IEntidade> entidades = null;
+		if (request.getParameter("all") != null && request.getParameter("all").equals("false"))
+		dao.consultar(entidade);
+		else
+			entidades = dao.consultarTodos(entidade);
+		
+		request.setAttribute("entidade", entidade);
+		request.setAttribute("entidades", entidades);
+		IDispacherPathEntidade path = factoryDispacherPath.criar(entidade);
+		if (path == null)
+			return;
+		RequestDispatcher view = request.getRequestDispatcher("404") ;
+		
+		if (entidades == null)
+			view = request.getRequestDispatcher(path.get());
+		else
+			view = request.getRequestDispatcher(path.query());
+		view.forward(request, response);
 	}
 
 

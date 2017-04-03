@@ -22,4 +22,9 @@ public class UsuarioDispacherPath extends IDispacherPathEntidade {
 		return "Views/CarregarUsuario.jsp";
 	}
 
+	@Override
+	public String query() {
+		return "Views/VisualizarTodosUsuarios.jsp";
+	}
+
 }
