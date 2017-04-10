@@ -32,10 +32,10 @@ public class UsuarioTest {
 		usr.setHoraAcesso(new Time(1000));
 		Date dt = new Date();
 		dt.setTime((millisegundoHour * 8)+ (millisegundoHour/2) + fuso);
-		usr.setHoraAcesso(dt);
+		//usr.setHoraAcesso(dt);
 		dt = new Date();
 		dt.setTime((millisegundoHour * 16)+fuso);
-		usr.setHoraSaida(dt);
+		//usr.setHoraSaida(dt);
 		usr.setLogin("rafa");
 		usr.setSenha("123");
 		usr.setPerfil(Usuario.TipoPerfil.Admin);

@@ -1,7 +1,6 @@
 package br.usjt.arqdsis.sisPredial.DispacherPathsEntity;
 
-public class UsuarioDispacherPath extends IDispacherPathEntidade {
-
+public class ConjuntoDispacherPath extends IDispacherPathEntidade {
 	@Override
 	public String post() {
 		return get();
@@ -9,7 +8,7 @@ public class UsuarioDispacherPath extends IDispacherPathEntidade {
 
 	@Override
 	public String get() {
-		return "Views/Usuario/VisualizarUsuario.jsp";
+		return "Views/Conjunto/Visualizar.jsp";
 	}
 
 	@Override
@@ -24,17 +23,16 @@ public class UsuarioDispacherPath extends IDispacherPathEntidade {
 
 	@Override
 	public String query() {
-		return "Views/Usuario/VisualizarTodosUsuarios.jsp";
+		return "Views/Conjunto/VisualizarTodos.jsp";
 	}
 
 	@Override
 	public String postPage() {
-		return "Views/Usuario/CadastrarUsuario.jsp";
+		return "Views/Conjunto/Cadastrar.jsp";
 	}
 	
 	@Override
 	public String putPage() {
 		return postPage();
 	}
-
 }

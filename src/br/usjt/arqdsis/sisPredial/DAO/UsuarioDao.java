@@ -40,8 +40,8 @@ public class UsuarioDao extends AbstractDao<Usuario>{
          stm.setString(2, usr.getCPF());
          stm.setString(3, usr.getNome());
          stm.setInt(4, usr.getEmpresa().getId());
-         stm.setDate(5, new Date(usr.getHoraAcesso().getTime()));
-         stm.setDate(6, new Date(usr.getHoraSaida().getTime()));
+         stm.setTime(5, usr.getHoraAcesso());
+         stm.setTime(6, usr.getHoraSaida());
          stm.setString(7, usr.getSenha());
          stm.setString(8,usr.getPerfil().toString());
          stm.executeUpdate();
@@ -104,8 +104,8 @@ public class UsuarioDao extends AbstractDao<Usuario>{
          stm.setString(1, usr.getLogin());
          stm.setString(2, usr.getCPF());
          stm.setInt(3, usr.getEmpresa().getId());
-         stm.setDate(4, new Date(usr.getHoraAcesso().getTime()));
-         stm.setDate(5, new Date(usr.getHoraSaida().getTime()));
+         stm.setTime(4, usr.getHoraAcesso());
+         stm.setTime(5, usr.getHoraSaida());
          stm.setString(6, usr.getNome());
          stm.setString(7, usr.getSenha());
          stm.setString(8, usr.getPerfil().toString());
@@ -250,6 +250,8 @@ public class UsuarioDao extends AbstractDao<Usuario>{
             empDao.consultar(usr.getEmpresa());
             usr.setHoraAcesso(rs.getTime("horaAcesso"));
             usr.setHoraSaida(rs.getTime("horaSaida"));
+            System.out.println(usr.getHoraAcesso());
+            System.out.println(usr.getHoraSaida());
             usr.setSenha(rs.getString("senha"));
             usr.setPerfil(Usuario.TipoPerfil.valueOf(rs.getString("perfil")));
             

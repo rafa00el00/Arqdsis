@@ -1,4 +1,4 @@
-package br.usjt.arqdsis.sisPredial.Test.ViewHelpers;
+package br.usjt.arqdsis.sisPredial.ViewHelpers;
 
 import java.sql.Time;
 import java.text.DateFormat;

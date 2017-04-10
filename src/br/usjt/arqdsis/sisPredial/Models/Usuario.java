@@ -1,4 +1,5 @@
 package br.usjt.arqdsis.sisPredial.Models;
+import java.sql.Time;
 import java.util.Date;
 
 import br.usjt.arqdsis.sisPredial.DAO.UsuarioDao;
@@ -10,8 +11,8 @@ public class Usuario extends IEntidade{
    private String CPF;
    private String nome;
    private Empresa empresa;
-   private Date horaAcesso;
-   private Date horaSaida; 
+   private Time horaAcesso;
+   private Time horaSaida; 
    
    public Usuario(String login,String senha,TipoPerfil perfil){
       setLogin(login);
@@ -74,16 +75,16 @@ public class Usuario extends IEntidade{
    public void setEmpresa(Empresa empresa) {
       this.empresa = empresa;
    }
-   public Date getHoraAcesso() {
+   public Time getHoraAcesso() {
       return horaAcesso;
    }
-   public void setHoraAcesso(Date horaAcesso) {
+   public void setHoraAcesso(Time horaAcesso) {
       this.horaAcesso = horaAcesso;
    }
-   public Date getHoraSaida() {
+   public Time getHoraSaida() {
       return horaSaida;
    }
-   public void setHoraSaida(Date horaSaida) {
+   public void setHoraSaida(Time horaSaida) {
       this.horaSaida = horaSaida;
    }
 

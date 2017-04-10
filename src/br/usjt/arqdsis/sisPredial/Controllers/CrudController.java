@@ -1,8 +1,10 @@
 package br.usjt.arqdsis.sisPredial.Controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
+import javax.jws.WebMethod;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,13 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.usjt.arqdsis.sisPredial.Core.IFachade;
 import br.usjt.arqdsis.sisPredial.DAO.AbstractDao;
 import br.usjt.arqdsis.sisPredial.DispacherPathsEntity.IDispacherPathEntidade;
 import br.usjt.arqdsis.sisPredial.Factorys.FactoryDao;
 import br.usjt.arqdsis.sisPredial.Factorys.FactoryDispacherPath;
+import br.usjt.arqdsis.sisPredial.Factorys.FactoryFachade;
 import br.usjt.arqdsis.sisPredial.Factorys.FactoryViewHelper;
 import br.usjt.arqdsis.sisPredial.Models.IEntidade;
-import br.usjt.arqdsis.sisPredial.Test.ViewHelpers.IViewHelper;
+import br.usjt.arqdsis.sisPredial.ViewHelpers.IViewHelper;
 
 /**
  * Servlet implementation class CrudController
@@ -25,54 +29,47 @@ import br.usjt.arqdsis.sisPredial.Test.ViewHelpers.IViewHelper;
 public class CrudController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private FactoryDao factoryDao;
 	private FactoryViewHelper factoryViewHelper;
-	private FactoryDispacherPath factoryDispacherPath;
-	
-    
-    public CrudController() {
-       factoryDao = new FactoryDao();
-       factoryViewHelper = new FactoryViewHelper();
-       factoryDispacherPath = new FactoryDispacherPath();
-    }
+	private FactoryFachade fachadeFactory;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	public CrudController() {
+		factoryViewHelper = new FactoryViewHelper();
+		fachadeFactory = FactoryFachade.getInstance();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		IViewHelper vhp = factoryViewHelper.criar(request);
-		IEntidade entidade = vhp.criar(request);
-		AbstractDao dao = factoryDao.criar(entidade);
-		List<IEntidade> entidades = null;
-		if (request.getParameter("all") != null && request.getParameter("all").equals("false"))
-		dao.consultar(entidade);
+		IFachade fachade = fachadeFactory.criar(vhp.criar(request));
+
+		RequestDispatcher view;
+		if (request.getParameter("_method").equals("get"))
+			if (request.getParameter("page") != null && request.getParameter("page").equals("create"))
+				view = fachade.createPage(request, response);
+			else if (request.getParameter("page") != null && request.getParameter("page").equals("update"))
+				view = fachade.updatePage(request, response);
+			else
+				view = fachade.read(request, response);
+		else if (request.getParameter("_method").equals("delete"))
+			view = fachade.delete(request, response);
 		else
-			entidades = dao.consultarTodos(entidade);
-		
-		request.setAttribute("entidade", entidade);
-		request.setAttribute("entidades", entidades);
-		IDispacherPathEntidade path = factoryDispacherPath.criar(entidade);
-		if (path == null)
-			return;
-		RequestDispatcher view = request.getRequestDispatcher("404") ;
-		
-		if (entidades == null)
-			view = request.getRequestDispatcher(path.get());
-		else
-			view = request.getRequestDispatcher(path.query());
+			view = fachade.badRequest(request);
 		view.forward(request, response);
 	}
 
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		IViewHelper vhp = factoryViewHelper.criar(request);
-		IEntidade entidade = vhp.criar(request);
-		AbstractDao dao = factoryDao.criar(entidade);
-		dao.incluir(entidade);
-		
-		request.setAttribute("entidade", entidade);
-		IDispacherPathEntidade path = factoryDispacherPath.criar(entidade);
-		if (path == null)
-			return;
-		RequestDispatcher view = request.getRequestDispatcher(path.post());
+		IFachade fachade = fachadeFactory.criar(vhp.criar(request));
+
+		RequestDispatcher view;
+		if (request.getParameter("_method").equals("post"))
+			view = fachade.create(request, response);
+		else if (request.getParameter("_method").equals("put"))
+			view = fachade.update(request, response);
+		else
+			view = fachade.badRequest(request);
+
 		view.forward(request, response);
 	}
 

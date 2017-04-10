@@ -9,13 +9,13 @@ pageEncoding="ISO-8859-1"%>
 	<title>Usuarios</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class=container>
+<body>
+<c:import url="/menu.jsp"></c:import>
 
-
-
+<div  class=container>
 	<legend>
 		Lista de usuarios   
-		<a href="Views/CadastrarUsuario.jsp" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span> Novo Usuario </a>
+		<a href="CrudController.do?page=create&entidadeName=usuario&_method=get" class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span> Novo Usuario </a>
 	</legend>
 	<table class="table table-striped">
 
@@ -32,18 +32,20 @@ pageEncoding="ISO-8859-1"%>
 		<tr>
 			<td>${usuario.nome}</td>
 			<td>${usuario.CPF}</td>
-			<td>${usario.horaAcesso}</td>
-			<td>${usario.horaSaida}</td>
+			<td>${usuario.horaAcesso}</td>
+			<td>${usuario.horaSaida.toString()}</td>
 			<td>${usuario.empresa.razaoSocial}</td>
 			<td>
-				<a href="#${usuario.id}"><span class="glyphicon glyphicon-edit"></span></a>   
-				<a href="#${usuario.id}" class="text-danger"><span class="glyphicon glyphicon-remove"></span></a> 
+				<a href="CrudController.do?id=${usuario.id}&entidadeName=usuario&_method=get&page=update">
+<span class="glyphicon glyphicon-edit"></span>
+			</a>
+				<a href="CrudController.do?id=${usuario.id}&entidadeName=usuario&_method=delete" class="text-danger"><span class="glyphicon glyphicon-remove"></span></a> 
 				 </td>
 		</tr>
 	</c:forEach>
 
 </table>
-
+</div>
 <script type="text/javascript" scr="../js/npm.js"></script>
 <script type="text/javascript" scr="../js/bootstrap.min.js"></script>
 
