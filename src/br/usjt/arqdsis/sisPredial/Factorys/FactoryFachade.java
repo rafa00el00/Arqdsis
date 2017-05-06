@@ -2,8 +2,10 @@ package br.usjt.arqdsis.sisPredial.Factorys;
 
 import java.util.HashMap;
 
+import br.usjt.arqdsis.sisPredial.Core.FachadeEmpresa;
 import br.usjt.arqdsis.sisPredial.Core.FachadeUsuario;
 import br.usjt.arqdsis.sisPredial.Core.IFachade;
+import br.usjt.arqdsis.sisPredial.Models.Empresa;
 import br.usjt.arqdsis.sisPredial.Models.Usuario;
 
 public class FactoryFachade implements IFactory<IFachade> {
@@ -14,6 +16,7 @@ public class FactoryFachade implements IFactory<IFachade> {
 	private FactoryFachade() {
 		map = new HashMap<String,IFachade>();
 		map.put(Usuario.class.getName(), new FachadeUsuario());
+		map.put(Empresa.class.getName(), new FachadeEmpresa());
 	}
 	
 	public static FactoryFachade getInstance() {

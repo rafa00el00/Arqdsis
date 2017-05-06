@@ -36,3 +36,22 @@ create table Usuario(
     ,empresaId int
     ,constraint FK_Usuario_Empresa foreign key (empresaId) references Empresa(id)
 );
+
+INSERT INTO `syspredial`.`empresa`
+(
+`razaosocial`,
+`cnpj`,
+`horarioAbertura`,
+`horarioFechamento`,
+`temperaturaPadrao`,
+`horaIniAr`,
+`horaFimAr`)
+VALUES
+(
+'Teste',
+'123',
+'08:30',
+'16:00',
+24,
+'08:30',
+'16:00');

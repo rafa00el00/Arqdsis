@@ -2,8 +2,7 @@ package br.usjt.arqdsis.sisPredial.Factorys;
 
 import java.util.HashMap;
 
-import org.hamcrest.core.IsInstanceOf;
-
+import br.usjt.arqdsis.sisPredial.DispacherPathsEntity.EmpresaDispacherPath;
 import br.usjt.arqdsis.sisPredial.DispacherPathsEntity.IDispacherPathEntidade;
 import br.usjt.arqdsis.sisPredial.DispacherPathsEntity.UsuarioDispacherPath;
 import br.usjt.arqdsis.sisPredial.Models.Conjunto;
@@ -19,7 +18,7 @@ public class FactoryDispacherPath implements IFactory<IDispacherPathEntidade> {
 		map = new HashMap<>();
 		
 		map.put(Usuario.class.getName(), new UsuarioDispacherPath());
-		map.put(Empresa.class.getName(), new UsuarioDispacherPath());
+		map.put(Empresa.class.getName(), new EmpresaDispacherPath());
 		map.put(Conjunto.class.getName(), new UsuarioDispacherPath());
 	}
 	

@@ -42,11 +42,11 @@ public class UsuarioViewHelper implements IViewHelper {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		if (request.getParameter("id") != null)
+		if (request.getParameter("id") != null && request.getParameter("id") != "")
 			usuario.setId(Integer.parseInt(request.getParameter("id")));
 
 		usuario.setEmpresa(new Empresa());
-		if (request.getParameter("idEmpresa") != null)
+		if (request.getParameter("idEmpresa") != null && request.getParameter("idEmpresa") != "")
 			usuario.getEmpresa().setId(Integer.parseInt(request.getParameter("idEmpresa")));
 
 		return usuario;

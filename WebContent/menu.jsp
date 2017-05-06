@@ -13,6 +13,7 @@
 <div class="collapse navbar-collapse navbar-inverse" id="bs-example-navbar-collapse-1">
 <ul class="nav navbar-nav pull-right">
 	<li ><a href="CrudController.do?all=true&entidadeName=usuario&_method=get"> Usuario </a> </li>
+	<li ><a href="CrudController.do?all=true&entidadeName=empresa&_method=get"> Empresa </a> </li>
          </ul>
 </div>
 
