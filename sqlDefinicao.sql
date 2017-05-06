@@ -1,6 +1,14 @@
 Create database sysPredial;
 use sysPredial;
 
+create table Conjunto(
+	id int primary key auto_increment
+	,nrConjunto varchar(255)
+	,andar varchar(255)
+	,alugel double
+	,tamanho int
+	,ocupado boolean
+);
 
 create table Empresa(
 	id int primary key auto_increment
@@ -11,17 +19,8 @@ create table Empresa(
 	,temperaturaPadrao int
 	,horaIniAr Time
 	,horaFimAr Time
-);
-
-create table Conjunto(
-	id int primary key auto_increment
-	,nrConjunto varchar(255)
-	,Andar varchar(255)
-	,Alugel double
-	,tamanho int
-	,ocupado boolean
-    ,empresaId int
-    ,constraint FK_Conjunto_Empresa foreign key (empresaId) references Empresa(id)
+	,conjuntoId int null
+	,constraint FK_Conjunto_Empresa foreign key (conjuntoId) references Conjunto(id)
 );
 
 create table Usuario(
@@ -33,7 +32,7 @@ create table Usuario(
    ,nome varchar(255)
    ,horaAcesso Time
    ,horaSaida Time
-    ,empresaId int
+    ,empresaId int 
     ,constraint FK_Usuario_Empresa foreign key (empresaId) references Empresa(id)
 );
 

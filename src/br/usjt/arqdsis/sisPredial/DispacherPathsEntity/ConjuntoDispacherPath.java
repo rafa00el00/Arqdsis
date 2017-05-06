@@ -28,7 +28,7 @@ public class ConjuntoDispacherPath extends IDispacherPathEntidade {
 
 	@Override
 	public String postPage() {
-		return "Views/Conjunto/Cadastrar.jsp";
+		return "Views/Conjunto/CadastrarConjunto.jsp";
 	}
 	
 	@Override

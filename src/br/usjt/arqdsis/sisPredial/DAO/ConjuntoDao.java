@@ -26,7 +26,7 @@ public class ConjuntoDao extends AbstractDao<Conjunto> {
 	public boolean incluir(Conjunto conjunto) {
 
 		String sqlInsert = "INSERT INTO Conjunto(" + "nrConjunto" + ",Andar" + ",Alugel" + ",tamanho" + ",ocupado"
-				+ ",empresaId" + ")" + " VALUES (?, ?, ?, ?, ?,?)";
+				 + ")" + " VALUES (?, ?, ?, ?, ?)";
 		PreparedStatement stm = null;
 		try {
 			stm = conn.prepareStatement(sqlInsert,Statement.RETURN_GENERATED_KEYS);
@@ -35,10 +35,7 @@ public class ConjuntoDao extends AbstractDao<Conjunto> {
 			stm.setDouble(3, conjunto.getAlugel());
 			stm.setInt(4, conjunto.getTamanho());
 			stm.setBoolean(5, conjunto.isOcupado());
-			if (conjunto.getEmpresa() != null)
-				stm.setInt(6, conjunto.getEmpresa().getId());
-			else
-				stm.setNull(6, java.sql.Types.INTEGER);
+			
 			stm.executeUpdate();
 			ResultSet rs = stm.getGeneratedKeys();
 			rs.next();
@@ -67,7 +64,7 @@ public class ConjuntoDao extends AbstractDao<Conjunto> {
 	public boolean alterar(Conjunto conjunto) {
 
 		String sqlInsert = "Update Conjunto set " + " nrConjunto = ?" + " ,Andar = ?" + " ,Alugel = ?" + " ,tamanho = ?"
-				+ " ,ocupado = ?" + ",empresaId = ?" + "" + " where id = ?";
+				+ " ,ocupado = ?" + "" + " where id = ?";
 
 		PreparedStatement stm = null;
 		try {
@@ -77,11 +74,8 @@ public class ConjuntoDao extends AbstractDao<Conjunto> {
 			stm.setDouble(3, conjunto.getAlugel());
 			stm.setInt(4, conjunto.getTamanho());
 			stm.setBoolean(5, conjunto.isOcupado());
-			if (conjunto.getEmpresa() != null)
-				stm.setInt(6, conjunto.getEmpresa().getId());
-			else
-				stm.setNull(6, java.sql.Types.INTEGER);
-			stm.setInt(7, conjunto.getId());
+			
+			stm.setInt(6, conjunto.getId());
 			stm.execute();
 			return true;
 		} catch (Exception e) {
@@ -130,11 +124,6 @@ public class ConjuntoDao extends AbstractDao<Conjunto> {
 				conjunto.setAlugel(rs.getDouble("Alugel"));
 				conjunto.setTamanho(rs.getInt("tamanho"));
 				conjunto.setOcupado(rs.getBoolean("ocupado"));
-				if (rs.getInt("empresaId") != 0) {
-					conjunto.setEmpresa(new Empresa());
-					conjunto.getEmpresa().setId(rs.getInt("empresaId"));
-					empresaDao.consultar(conjunto.getEmpresa());
-				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -176,11 +165,6 @@ public class ConjuntoDao extends AbstractDao<Conjunto> {
 				conjunto.setAlugel(rs.getDouble("Alugel"));
 				conjunto.setTamanho(rs.getInt("tamanho"));
 				conjunto.setOcupado(rs.getBoolean("ocupado"));
-				if (rs.getInt("empresaId") != 0) {
-					conjunto.setEmpresa(new Empresa());
-					conjunto.getEmpresa().setId(rs.getInt("empresaId"));
-					empresaDao.consultar(conjunto.getEmpresa());
-				}
 				conjuntos.add(conjunto);
 
 			}

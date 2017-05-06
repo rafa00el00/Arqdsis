@@ -50,6 +50,16 @@
 					value="${entidade.temperaturaPadrao}" class="form-control" />
 			</div>
 			
+			<div class="form-group">
+				<label>Conjunto: </label>
+				<select name="conjuntoId">
+					<option>Selecione</option>
+					<c:forEach var="conjunto" items="${conjuntos}">
+						<option value="${conjunto.id }" >${conjunto.nrConjunto }</option>
+					</c:forEach>
+				</select>
+			</div>
+			
 			
 			
 			<div class="form-group">

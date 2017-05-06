@@ -4,15 +4,15 @@ import br.usjt.arqdsis.sisPredial.DAO.ConjuntoDao;
 public class Conjunto extends IEntidade{
    
    private String nrConjunto;
-   private String Andar;
+   private String andar;
    private double Alugel;
    private int tamanho;
    private boolean ocupado;
-   private Empresa empresa;
    
   
    
    public Conjunto(){
+	   this.ocupado = false;
    }
    
    //Getters and Setters
@@ -23,10 +23,10 @@ public class Conjunto extends IEntidade{
       this.nrConjunto = nrConjunto;
    }
    public String getAndar() {
-      return Andar;
+      return andar;
    }
    public void setAndar(String andar) {
-      Andar = andar;
+      andar = andar;
    }
    public double getAlugel() {
       return Alugel;
@@ -46,13 +46,6 @@ public class Conjunto extends IEntidade{
    public void setOcupado(boolean ocupado) {
       this.ocupado = ocupado;
    }
-   public Empresa getEmpresa() {
-      return empresa;
-   }
-   public void setEmpresa(Empresa empresa) {
-      this.empresa = empresa;
-   }
-	   	
 
    @Override
 	public String toString() {
