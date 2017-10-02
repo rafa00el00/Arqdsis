@@ -25,8 +25,8 @@ public abstract class AcessoBD {
 	public static Connection getInstance() throws SQLException {
 		if (conn == null) {
 				conn = DriverManager.getConnection(
-						"jdbc:mysql://LocalHost:3306/sysPredial?user=alunos&password=alunos"
-						//"jdbc:mysql://LocalHost:3306/sysPredial?user=root&password="
+						//"jdbc:mysql://LocalHost:3306/sysPredial?user=alunos&password=alunos"
+						"jdbc:mysql://LocalHost:3306/sysPredial?user=root&password="
 				);
 		}
 		return conn;

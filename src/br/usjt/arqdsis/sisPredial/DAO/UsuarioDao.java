@@ -1,5 +1,4 @@
 package br.usjt.arqdsis.sisPredial.DAO;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +10,7 @@ import com.mysql.jdbc.Statement;
 import br.usjt.arqdsis.sisPredial.Models.Empresa;
 import br.usjt.arqdsis.sisPredial.Models.IEntidade;
 import br.usjt.arqdsis.sisPredial.Models.Usuario;
+import br.usjt.arqdsis.sisPredial.ViewModels.LoginViewModel;
 
 public class UsuarioDao extends AbstractDao<Usuario>{
 
@@ -149,8 +149,19 @@ public class UsuarioDao extends AbstractDao<Usuario>{
       Usuario usr;
       if (entidade instanceof Usuario){
          sqlSelect += " where id = ?";
+         
+      }else if(entidade instanceof LoginViewModel){
+    	  sqlSelect += " where login = '" + ((LoginViewModel)entidade).getLogin() + "'"
+    			  + " and senha = '" + ((LoginViewModel)entidade).getPassword() + "'";
+    	  
       }
-      usr= (Usuario)entidade;
+      
+      if (entidade instanceof Usuario){
+    	  usr= (Usuario)entidade;
+      }else{
+    	  usr = new Usuario();
+      }
+     
    
       PreparedStatement stm = null;
       ResultSet rs = null;

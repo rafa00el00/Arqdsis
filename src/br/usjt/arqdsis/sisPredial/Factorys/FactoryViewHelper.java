@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import br.usjt.arqdsis.sisPredial.Models.Usuario;
 import br.usjt.arqdsis.sisPredial.ViewHelpers.EmpresaViewHelper;
 import br.usjt.arqdsis.sisPredial.ViewHelpers.IViewHelper;
+import br.usjt.arqdsis.sisPredial.ViewHelpers.LoginViewHelper;
 import br.usjt.arqdsis.sisPredial.ViewHelpers.UsuarioViewHelper;
 
 public class FactoryViewHelper implements IFactory<IViewHelper> {
@@ -18,6 +19,7 @@ public class FactoryViewHelper implements IFactory<IViewHelper> {
 
 		mapViewHelper.put("usuario", new UsuarioViewHelper());
 		mapViewHelper.put("empresa", new EmpresaViewHelper());
+		mapViewHelper.put("login", new LoginViewHelper());
 
 	}
 
