@@ -16,6 +16,7 @@
 	<input type="text" nome="login" id="login" class="form-control">
 	<label>Senha</label>
 	<input type="password" nome="password" id="password" class="form-control">
+	<input type="hidden" name="command" value="FazerLogin" />
 	<input type="submit" value="Logar" class="btn btn-primary">
 
 </form>

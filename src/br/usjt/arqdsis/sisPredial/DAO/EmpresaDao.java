@@ -136,11 +136,11 @@ public class EmpresaDao extends AbstractDao<Empresa> {
 				empresa.setHorarioFechamento(rs.getTime("horarioFechamento"));
 				empresa.setHoraIniAr(rs.getTime("horaIniAr"));
 				empresa.setHoraFimAr(rs.getTime("horaFimAr"));
-				if ( rs.getInt("conjuntoId") != 0){
+				/*if ( rs.getInt("conjuntoId") != 0){
 					empresa.setConjunto(new Conjunto());
 					empresa.getConjunto().setId(rs.getInt("conjuntoId"));
 					conjuntoDao.consultar(empresa.getConjunto());
-				}
+				}*/
 				
 			}
 		} catch (Exception e) {
@@ -194,11 +194,11 @@ public class EmpresaDao extends AbstractDao<Empresa> {
 				empresa.setHoraIniAr(rs.getTime("horaIniAr"));
 				empresa.setHoraFimAr(rs.getTime("horaFimAr"));
 				
-				if ( rs.getInt("conjuntoId") != 0){
+				/*if ( rs.getInt("conjuntoId") != 0){
 					empresa.setConjunto(new Conjunto());
 					empresa.getConjunto().setId(rs.getInt("conjuntoId"));
 					conjuntoDao.consultar(empresa.getConjunto());
-				}
+				}/*/
 				empresas.add(empresa);
 
 			}

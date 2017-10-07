@@ -8,8 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.usjt.arqdsis.sisPredial.Core.LoginNegocio;
+import br.usjt.arqdsis.sisPredial.Models.Usuario;
 
 /**
  * Servlet implementation class LoginController
@@ -45,7 +47,17 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		loginNegocio.doLogin(request.getParameter("login"), request.getParameter("password"));
+		HttpSession session = request.getSession();
+		Usuario usr = loginNegocio.doLogin(request.getParameter("login"), request.getParameter("password"));
+
+		if (usr != null) {
+			session.setAttribute("logado", usr);
+			System.out.println("Logou " + usr.getNome());
+		} else {
+			System.out.println("Não Logou ");
+			throw new ServletException("Usuário/Senha inválidos");
+		}
+		
 		RequestDispatcher view = request.getRequestDispatcher("index.jsp");
 		view.forward(request, response);
 
