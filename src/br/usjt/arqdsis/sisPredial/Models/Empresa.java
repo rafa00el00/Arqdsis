@@ -1,9 +1,11 @@
 package br.usjt.arqdsis.sisPredial.Models;
 
+import java.io.IOException;
 import java.sql.Time;
 import java.util.List;
 
-import br.usjt.arqdsis.sisPredial.DAO.EmpresaDao;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Empresa extends IEntidade {
 
@@ -18,8 +20,6 @@ public class Empresa extends IEntidade {
 
 	private List<Usuario> funcionarios;
 
-	
-
 	public Empresa() {
 		this("", "");
 	}
@@ -27,7 +27,7 @@ public class Empresa extends IEntidade {
 	public Empresa(String cnpj, String razaoSocial) {
 		this.cnpj = cnpj;
 		this.razaoSocial = razaoSocial;
-	
+
 	}
 
 	// getters e Settes
@@ -94,6 +94,7 @@ public class Empresa extends IEntidade {
 	public void setConjunto(Conjunto cj) {
 		this.cj = cj;
 	}
+
 	public List<Usuario> getFuncionarios() {
 		return funcionarios;
 	}
@@ -102,30 +103,60 @@ public class Empresa extends IEntidade {
 		this.funcionarios = funcionarios;
 	}
 
-	
 	@Override
 	public String toString() {
 		return getCnpj() + " - " + getRazaoSocial();
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-		
+
 		if (obj == null)
 			return false;
-		if(!(obj instanceof Empresa))
+		if (!(obj instanceof Empresa))
 			return false;
-		
-		if(!cnpj.equals(((Empresa)obj).cnpj))
+
+		if (!cnpj.equals(((Empresa) obj).cnpj))
 			return false;
-		
-		if(!razaoSocial.equals(((Empresa)obj).razaoSocial))
+
+		if (!razaoSocial.equals(((Empresa) obj).razaoSocial))
 			return false;
-		
-		
+
 		return true;
-					
+
+	}
+
+	public String toJson() {
+		JSONObject object = new JSONObject();
+		try {
+			object.put("id", getId());
+			object.put("HorarioAbertura", getHorarioAbertura());
+			object.put("HorarioFechamento", getHorarioFechamento());
+			object.put("TemperaturaPadrao", getTemperaturaPadrao());
+			object.put("HoraIniAr", getHoraIniAr());
+			object.put("HoraFimAr", getHoraFimAr());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return object.toString();
 	}
 	
+	public Empresa fromJson(String Json) throws IOException{
+		try {
+			JSONObject object = new JSONObject(Json);
+			setId(object.getInt("id"));
+			setHorarioAbertura( new Time(object.getLong("HorarioAbertura")));
+			setHorarioFechamento( new Time(Long.parseLong(object.getString("HorarioFechamento"))));
+			setTemperaturaPadrao(object.getInt("TemperaturaPadrao"));
+			setHoraIniAr( new Time(Long.parseLong(object.getString("HoraIniAr"))));
+			setHoraFimAr( new Time(Long.parseLong(object.getString("HoraFimAr"))));
+		} catch (JSONException jsone){
+			jsone.printStackTrace();
+			throw new IOException(jsone);
+		}
+		
+		
+		return this;
+	}
 
 }
