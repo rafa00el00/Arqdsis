@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Arqdsis</string>
+    <string name="EditField1Hint">Digite Aqui...</string>
+    <string name="button_send">Enviar</string>
+</resources>
