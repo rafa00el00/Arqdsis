@@ -37,4 +37,14 @@
     <string name="title_activity_activity_c">Atividade C</string>
     <string name="title_activity_dialog">Diálogo</string>
     <string name="title_activity">Ciclo de Vida da Atividade</string>
+    <string name="lblUsuario">Usuario</string>
+    <string name="hitnUsuario">Nome do Usuario</string>
+    <string name="hintSenha">Senha..</string>
+    <string name="btnLogar">Logar</string>
+    <string name="hintBuscarUsuario">Buscar Usuario...</string>
+    <string name="btnBuscar">Buscar</string>
+    <string name="edtNomeDetalhes">nome</string>
+    <string name="edtSenhaDetalhes">Senha</string>
+    <string name="edtCPFDetalhes">CPF</string>
+    <string name="edtUsuarioDetalhes">Usuario</string>
 </resources>

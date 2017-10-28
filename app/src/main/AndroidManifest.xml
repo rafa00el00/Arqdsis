@@ -8,16 +8,21 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityA">
+        <activity android:name=".ActivityA" />
+        <activity android:name=".DialogActivity" />
+        <activity android:name=".ActivityB" />
+        <activity android:name=".ActivityC" />
+        <activity android:name=".NovoLayout" />
+        <activity android:name=".Projeto.PrincipalActivity"></activity>
+        <activity android:name=".Projeto.Loginctivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DialogActivity" />
-        <activity android:name=".ActivityB" />
-        <activity android:name=".ActivityC"></activity>
+        <activity android:name=".Projeto.UsuariosActivity" />
+        <activity android:name=".Projeto.DetalhesUsuarioActivity"></activity>
     </application>
 
 </manifest>

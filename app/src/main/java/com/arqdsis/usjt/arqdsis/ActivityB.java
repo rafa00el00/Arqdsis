@@ -4,11 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.AndroidCharacter;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.arqdsis.usjt.arqdsis.util.StatusTracker;
 import com.arqdsis.usjt.arqdsis.util.Utils;
+
+import java.util.ArrayList;
 
 public class ActivityB  extends Activity {
 
@@ -22,8 +27,23 @@ public class ActivityB  extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_b);
-        mActivityName = getString(R.string.title_activity_activity_b);
+
+        Intent intent = getIntent();
+
+        String nome = intent.getStringExtra(ActivityA.NOME_CARINHA_QUE_MORA_LOGO_ALI);
         mStatusView = (TextView)findViewById(R.id.status_view_b);
+
+        ArrayList<String> teste = new ArrayList<>();
+        teste.add("Besta");
+
+        ArrayAdapter<String> testeAdp = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,teste);
+        ListView lstView = (ListView)findViewById(R.id.ExemploList);
+
+        lstView.setAdapter(testeAdp);
+
+
+        mActivityName = getString(R.string.title_activity_activity_b);
+        //mStatusView = (TextView)findViewById(R.id.status_view_b);
         mStatusAllView = (TextView)findViewById(R.id.status_view_all_b);
         mStatusTracker.setStatus(mActivityName, getString(R.string.on_create));
         Utils.printStatus(mStatusView, mStatusAllView);

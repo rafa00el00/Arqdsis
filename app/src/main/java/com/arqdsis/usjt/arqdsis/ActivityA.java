@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.arqdsis.usjt.arqdsis.util.StatusTracker;
@@ -35,6 +36,9 @@ public class ActivityA extends Activity {
     private TextView mStatusView;
     private TextView mStatusAllView;
     private StatusTracker mStatusTracker = StatusTracker.getInstance();
+
+    public static final String NOME_CARINHA_QUE_MORA_LOGO_ALI = "com.arqdsis.usjt.arqdsis.Nome";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,7 +98,12 @@ public class ActivityA extends Activity {
     }
 
     public void startActivityB(View v) {
-        Intent intent = new Intent(ActivityA.this, ActivityB.class);
+        Intent intent = new Intent(this, ActivityB.class);
+        String nome = ((EditText)findViewById(R.id.exemplo)).getText().toString();
+        intent.putExtra(NOME_CARINHA_QUE_MORA_LOGO_ALI,nome);
+        EditText blabla = (EditText) findViewById(R.id.exemplo);
+        String interesse = blabla.getText().toString();
+        intent.putExtra("Interesse",interesse);
         startActivity(intent);
     }
 
@@ -107,4 +116,6 @@ public class ActivityA extends Activity {
         ActivityA.this.finish();
     }
 
+    public void blablabla(View view) {
+    }
 }
