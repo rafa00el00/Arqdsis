@@ -28,4 +28,9 @@ public class PrincipalActivity extends Activity {
         startActivity(intent);
 
     }
+
+    public void addUsuario(View view) {
+        Intent intent = new Intent(this,CreateUsuarioActivity.class);
+        startActivity(intent);
+    }
 }

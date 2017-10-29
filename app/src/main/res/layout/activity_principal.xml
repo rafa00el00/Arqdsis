@@ -25,6 +25,14 @@
         android:onClick="buscarUsuario"
         />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/AddUsuario"
+        android:onClick="addUsuario"
+        android:layout_below="@id/btnBuscarUsuario"
+        />
+
 
 
 

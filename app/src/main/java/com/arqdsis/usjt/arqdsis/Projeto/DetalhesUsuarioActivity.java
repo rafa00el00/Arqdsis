@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 
 import com.arqdsis.usjt.arqdsis.Models.Usuario;
@@ -25,5 +26,13 @@ public class DetalhesUsuarioActivity extends Activity {
         ((EditText)findViewById(R.id.edtNomeDetalhes)).setText(usuario.getNome());
         ((EditText)findViewById(R.id.edtCPFDetalhes)).setText(usuario.getCpf());
         ((EditText)findViewById(R.id.edtUsuarioDetalhes)).setText(usuario.getNomeUsuario());
+    }
+
+    public void atualizar(View view) {
+        this.finish();
+    }
+
+    public void fechar(View view) {
+        this.finish();
     }
 }

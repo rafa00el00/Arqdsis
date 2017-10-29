@@ -1,43 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_detalhes_usuario"
+    android:id="@+id/activity_create_usuario"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.arqdsis.usjt.arqdsis.Projeto.DetalhesUsuarioActivity">
+    tools:context="com.arqdsis.usjt.arqdsis.Projeto.CreateUsuarioActivity">
+
+
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edtNomeDetalhes"
+        android:id="@+id/edtNomeCreate"
         android:hint="@string/edtNomeDetalhes"
         />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edtCPFDetalhes"
-        android:layout_below="@id/edtNomeDetalhes"
+        android:id="@+id/edtCPFCreate"
+        android:layout_below="@id/edtNomeCreate"
         android:hint="@string/edtCPFDetalhes"
         />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edtUsuarioDetalhes"
-        android:layout_below="@id/edtCPFDetalhes"
+        android:id="@+id/edtUsuarioCreate"
+        android:layout_below="@id/edtCPFCreate"
+        android:hint="@string/hintSenha"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtSenhaCreate"
+        android:layout_below="@id/edtUsuarioCreate"
         android:hint="@string/edtUsuarioDetalhes"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btnAtualizar"
-        android:text="@string/btnAtualizarDetalhes"
-        android:layout_below="@id/edtUsuarioDetalhes"
-        android:onClick="atualizar"
+        android:text="@string/btnInserirDetalhes"
+        android:layout_below="@id/edtSenhaCreate"
+        android:onClick="inserir"
         />
     <Button
         android:layout_width="match_parent"
@@ -47,5 +57,4 @@
         android:layout_below="@id/btnAtualizar"
         android:onClick="fechar"
         />
-
 </RelativeLayout>

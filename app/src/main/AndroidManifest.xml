@@ -13,7 +13,7 @@
         <activity android:name=".ActivityB" />
         <activity android:name=".ActivityC" />
         <activity android:name=".NovoLayout" />
-        <activity android:name=".Projeto.PrincipalActivity"></activity>
+        <activity android:name=".Projeto.PrincipalActivity" />
         <activity android:name=".Projeto.Loginctivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Projeto.UsuariosActivity" />
-        <activity android:name=".Projeto.DetalhesUsuarioActivity"></activity>
+        <activity android:name=".Projeto.DetalhesUsuarioActivity" />
+        <activity android:name=".Projeto.CreateUsuarioActivity"></activity>
     </application>
 
 </manifest>

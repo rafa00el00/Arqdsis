@@ -47,4 +47,8 @@
     <string name="edtSenhaDetalhes">Senha</string>
     <string name="edtCPFDetalhes">CPF</string>
     <string name="edtUsuarioDetalhes">Usuario</string>
+    <string name="btnAtualizarDetalhes">Atualizar</string>
+    <string name="btnFecharDetalhes">Fechar</string>
+    <string name="btnInserirDetalhes">Inserir</string>
+    <string name="AddUsuario">Cadastrar Usuario</string>
 </resources>
